@@ -1,0 +1,11 @@
+Date,City,Method,Status,Amount
+2025-01-05,Berlin,card,paid,120.5
+2025-01-06,Berlin,cash,paid,75
+2025-01-07,Paris,card,failed,30
+2025-01-08,Amsterdam,card,paid,220
+2025-01-09,Paris,card,paid,180
+2025-01-10,Berlin,transfer,paid,510
+2025-01-11,Amsterdam,cash,paid,40
+2025-01-12,Paris,transfer,paid,95
+2025-01-13,Berlin,card,paid,60
+2025-01-14,Amsterdam,card,failed,15

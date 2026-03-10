@@ -1,0 +1,23 @@
+[
+  {
+    "Date": "2025-01-05",
+    "City": "Berlin",
+    "Method": "card",
+    "Status": "paid",
+    "Amount": 120.5
+  },
+  {
+    "Date": "2025-01-06",
+    "City": "Berlin",
+    "Method": "cash",
+    "Status": "paid",
+    "Amount": 75
+  },
+  {
+    "Date": "2025-01-07",
+    "City": "Paris",
+    "Method": "card",
+    "Status": "failed",
+    "Amount": 30
+  }
+]
