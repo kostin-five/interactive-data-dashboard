@@ -112,3 +112,114 @@ a { color: inherit; }
   .topbar { flex-direction: column; align-items: stretch; }
   .topbarActions { justify-content: flex-start; flex-wrap: wrap; }
 }
+
+.controls { padding: 12px; display: flex; flex-direction: column; gap: 12px; }
+.controlsTitle { font-weight: 800; }
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.fieldLabel { font-size: 12px; color: rgba(159,179,217,0.9); font-weight: 700; }
+
+.input, .select {
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.18);
+  color: var(--text);
+  padding: 10px 10px;
+  outline: none;
+}
+
+.input:focus-visible, .select:focus-visible {
+  outline: 3px solid rgba(76,125,255, 0.5);
+  outline-offset: 2px;
+}
+
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.small { font-size: 12px; }
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px; /* чтобы на мобилке был горизонтальный скролл */
+}
+
+.table th, .table td {
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 10px 10px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.table th {
+  position: sticky;
+  top: 0;
+  background: rgba(17, 26, 46, 0.95);
+  z-index: 1;
+}
+
+.thBtn {
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-weight: 800;
+  cursor: pointer;
+  padding: 0;
+}
+
+.thBtn:focus-visible { outline: 3px solid rgba(76,125,255, 0.5); outline-offset: 2px; }
+
+.sortMark { color: rgba(159,179,217,0.95); font-weight: 900; }
+
+.emptyBox {
+  padding: 14px;
+  color: var(--muted);
+}
+
+.pagerLeft { color: var(--muted); }
+.pagerRight { display: flex; gap: 10px; align-items: center; justify-content: flex-end; }
+.pages { display: flex; gap: 6px; align-items: center; }
+.pageBtn {
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+  padding: 8px 10px;
+  cursor: pointer;
+}
+.pageBtn[aria-current="page"] { border-color: rgba(76,125,255,0.6); background: rgba(76,125,255,0.18); }
+
+.dots { color: var(--muted); padding: 0 4px; }
+
+.statsGrid {
+  padding: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.stat {
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 10px;
+  background: rgba(255,255,255,0.03);
+}
+
+.statLabel { color: var(--muted); font-size: 12px; font-weight: 700; }
+.statValue { font-size: 16px; font-weight: 900; margin-top: 6px; }
+
+.statsEmpty { grid-column: 1 / -1; color: var(--muted); padding: 8px; }
+
+.chartTitle { padding: 12px; font-weight: 800; }
+
+.chartContainer {
+  position: relative; /* важно для responsive Chart.js */
+  height: 360px;
+  width: 100%;
+  padding: 0 12px 12px;
+}
+
+@media (max-width: 980px) {
+  .grid2 { grid-template-columns: 1fr; }
+  .statsGrid { grid-template-columns: 1fr; }
+  .pagerRight { justify-content: flex-start; flex-wrap: wrap; }
+  .chartContainer { height: 280px; }
+}
