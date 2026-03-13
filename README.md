@@ -28,18 +28,6 @@ https://interactive-data-dashboard.vercel.app/
 
 ---
 
-# Скриншоты
-
-## Таблица и фильтры
-
-![dashboard](interactive-data-dashboard/public/demo/table.png)
-
-## Статистика и график
-
-![chart](interactive-data-dashboard/public/demo/statsandgraphic.png)
-
----
-
 # Технологии
 
 - **TypeScript**
