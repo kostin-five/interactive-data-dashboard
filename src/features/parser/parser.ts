@@ -1,20 +1,10 @@
 import type { DataRow } from "../../core/types";
 
-// function splitLines(text) {
-//   return text
-//     .replace(/\r\n/g, "\n")
-//     .replace(/\r/g, "\n")
-//     .split("\n")
-//     .map((l) => l.trim())
-//     .filter(Boolean);
-// }
-
 function normalizeValue(v: unknown) {
   const s = String(v ?? "").trim();
 
   if (s === "" || s.toLowerCase() === "null") return null;
 
-  // boolean
   if (s.toLowerCase() === "true") return true;
   if (s.toLowerCase() === "false") return false;
 
@@ -71,21 +61,6 @@ export function parseDatasetFromText({
   } else {
     rows = parseCSV(text);
   }
-
-  // const name = fileName.toLowerCase();
-  // const trimmed = text.trim();
-  // if (!trimmed) throw new Error("Файл пустой");
-
-  // if (name.endsWith(".json")) rows = parseJSON(trimmed);
-  // else if (name.endsWith(".csv")) rows = parseCSV(trimmed);
-  // else {
-  //   // fallback: пробуем JSON, иначе CSV
-  //   try {
-  //     rows = parseJSON(trimmed);
-  //   } catch {
-  //     rows = parseCSV(trimmed);
-  //   }
-  // }
 
   const columns = Array.from(new Set(rows.flatMap((r) => Object.keys(r))));
 

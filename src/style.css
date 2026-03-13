@@ -11,6 +11,23 @@
 
 * { box-sizing: border-box; }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
 html, body {
   height: 100%;
   margin: 0;
@@ -31,7 +48,7 @@ a { color: inherit; }
   padding: 18px 18px 0;
 }
 
-.brandTitle { font-weight: 800; font-size: 18px; margin-bottom: 10px; }
+.brandTitle { font-weight: 800; font-size: 24px; margin-bottom: 10px; }
 .brandSubtitle { color: var(--muted); font-size: 13px; margin-top: 4px; }
 
 .topbarActions { display: flex; gap: 10px; align-items: center; }
@@ -222,4 +239,8 @@ a { color: inherit; }
   .statsGrid { grid-template-columns: 1fr; }
   .pagerRight { justify-content: flex-start; flex-wrap: wrap; }
   .chartContainer { height: 280px; }
+}
+
+#chartRoot {
+  padding: 10px
 }

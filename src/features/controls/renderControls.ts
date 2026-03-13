@@ -31,10 +31,10 @@ export function renderControls(root:HTMLElement, { state, view } : {state: AppSt
 
   root.innerHTML = `
     <div class="controls">
-      <div class="controlsTitle">Управление</div>
+      <h3 class="controlsTitle">Управление</h3>
 
       <label class="field">
-        <div class="fieldLabel">Поиск (по всем колонкам)</div>
+        <p class="fieldLabel">Поиск (по всем колонкам)</p>
         <input class="input" data-action="search" type="search" value="${escapeHtml(
           state.search
         )}" placeholder="например: paid, 2025-01, Berlin…" />
@@ -42,14 +42,14 @@ export function renderControls(root:HTMLElement, { state, view } : {state: AppSt
 
       <div class="grid2">
         <label class="field">
-          <div class="fieldLabel">Сортировка</div>
+          <p class="fieldLabel">Сортировка</p>
           <select class="select" data-action="sort-key">
             ${colOptions.map((c) => option(c, c || "—", sortKey)).join("")}
           </select>
         </label>
 
         <label class="field">
-          <div class="fieldLabel">Направление</div>
+          <p class="fieldLabel">Направление</p>
           <select class="select" data-action="sort-dir">
             ${option("asc", "ASC", sortDir)}
             ${option("desc", "DESC", sortDir)}
@@ -59,14 +59,14 @@ export function renderControls(root:HTMLElement, { state, view } : {state: AppSt
 
       <div class="grid2">
         <label class="field">
-          <div class="fieldLabel">Фильтр: колонка</div>
+          <p class="fieldLabel">Фильтр: колонка</p>
           <select class="select" data-action="filter-column">
             ${colOptions.map((c) => option(c, c || "—", filterCol)).join("")}
           </select>
         </label>
 
         <label class="field">
-          <div class="fieldLabel">Фильтр: содержит</div>
+          <p class="fieldLabel">Фильтр: содержит</p>
           <input class="input" data-action="filter-query" type="text" value="${escapeHtml(
             filterQuery
           )}" placeholder="например: card" />
@@ -74,7 +74,7 @@ export function renderControls(root:HTMLElement, { state, view } : {state: AppSt
       </div>
 
       <label class="field">
-        <div class="fieldLabel">Размер страницы</div>
+        <p class="fieldLabel">Размер страницы</p>
         <select class="select" data-action="page-size">
           ${option("10", "10", String(state.pageSize))}
           ${option("25", "25", String(state.pageSize))}
@@ -83,7 +83,7 @@ export function renderControls(root:HTMLElement, { state, view } : {state: AppSt
       </label>
 
       <label class="field">
-        <div class="fieldLabel">Статистика по колонке (числовые)</div>
+        <p class="fieldLabel">Статистика по колонке (числовые)</p>
         <select class="select" data-action="stats-column">
           ${[""]
             .concat(view.numericColumns)
@@ -94,7 +94,7 @@ export function renderControls(root:HTMLElement, { state, view } : {state: AppSt
 
       <div class="grid2">
         <label class="field">
-          <div class="fieldLabel">График: X</div>
+          <p class="fieldLabel">График: X</p>
           <select class="select" data-action="chart-x">
             ${[""]
               .concat(view.stringColumns)
@@ -104,7 +104,7 @@ export function renderControls(root:HTMLElement, { state, view } : {state: AppSt
         </label>
 
         <label class="field">
-          <div class="fieldLabel">График: Y (числовая)</div>
+          <p class="fieldLabel">График: Y (числовая)</p>
           <select class="select" data-action="chart-y">
             ${[""]
               .concat(view.numericColumns)
@@ -118,11 +118,11 @@ export function renderControls(root:HTMLElement, { state, view } : {state: AppSt
         Сбросить фильтры/поиск/сорт
       </button>
 
-      <div class="muted small">
+      <p class="muted small">
         Строк: всего ${view.totalRows}, отображается ${
     view.visibleRows
   } (после поиска/фильтра).
-      </div>
+      </p>
     </div>
   `;
 }

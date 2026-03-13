@@ -33,11 +33,11 @@ export function renderPagination(root: HTMLElement, { state, view } : {state: Ap
   const current = view.safePage;
   const total = view.pageCount;
 
-  const left = document.createElement("div");
+  const left = document.createElement("p");
   left.className = "pagerLeft";
   left.textContent = `Стр. ${current} из ${total}`;
 
-  const right = document.createElement("div");
+  const right = document.createElement("p");
   right.className = "pagerRight";
 
   const prev = document.createElement("button");

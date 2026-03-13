@@ -3,49 +3,49 @@ import type { AppState, DerivedView } from "../../core/types";
 export function renderStats(root: HTMLElement, { state, view }: {state: AppState; view: DerivedView}): void {
   root.innerHTML = `
     <div class="cardHeader">
-      <div>Статистика</div>
-      <div class="muted">колонка: ${view.statsColumn || "—"}</div>
+      <h3>Статистика</h3>
+      <p class="muted">колонка: ${view.statsColumn || "—"}</p>
     </div>
 
     <div class="statsGrid">
       <div class="stat">
-        <div class="statLabel">Всего строк</div>
-        <div class="statValue">${view.totalRows}</div>
+        <p class="statLabel">Всего строк</p>
+        <p class="statValue">${view.totalRows}</p>
       </div>
 
       <div class="stat">
-        <div class="statLabel">После фильтра/поиска</div>
-        <div class="statValue">${view.visibleRows}</div>
+        <p class="statLabel">После фильтра/поиска</p>
+        <p class="statValue">${view.visibleRows}</p>
       </div>
 
       ${
         view.stats?.enabled
           ? `
         <div class="stat">
-          <div class="statLabel">Count (числовые)</div>
-          <div class="statValue">${view.stats.count}</div>
+          <p class="statLabel">Count (числовые)</p>
+          <p class="statValue">${view.stats.count}</p>
         </div>
         <div class="stat">
-          <div class="statLabel">Sum</div>
-          <div class="statValue">${Math.round(view.stats.sum * 100) / 100}</div>
+          <p class="statLabel">Sum</p>
+          <p class="statValue">${Math.round(view.stats.sum * 100) / 100}</p>
         </div>
         <div class="stat">
-          <div class="statLabel">Avg</div>
-          <div class="statValue">${Math.round(view.stats.avg * 100) / 100}</div>
+          <p class="statLabel">Avg</p>
+          <p class="statValue">${Math.round(view.stats.avg * 100) / 100}</p>
         </div>
         <div class="stat">
-          <div class="statLabel">Min / Max</div>
-          <div class="statValue">${view.stats.min} / ${view.stats.max}</div>
+          <p class="statLabel">Min / Max</p>
+          <p class="statValue">${view.stats.min} / ${view.stats.max}</p>
         </div>
       `
           : `
-        <div class="statsEmpty">
+        <p class="statsEmpty">
           ${
             state.status === "ready"
               ? "Выберите числовую колонку для статистики (или загрузите данные с числовыми колонками)."
               : "Статистика появится после загрузки данных."
           }
-        </div>
+        </p>
       `
       }
     </div>

@@ -46,30 +46,30 @@ export function renderLayout(appEl: HTMLElement): LayoutRefs {
                     aria-label="Зона загрузки файла. Перетащите CSV или JSON"
                     >
                         <div>
-                            <div class="dropTitle">Перетащите CSV/JSON сюда</div>
-                            <div class="dropHint">или нажмите «Загрузить файл»</div>
-                            <div class="dropMeta"> Поддерживаются CSV без сложных кавычек и JSON.
-                            </div>
+                            <h2 class="dropTitle">Перетащите CSV/JSON сюда</h2>
+                            <p class="dropHint">или нажмите «Загрузить файл»</p>
+                            <p class="dropMeta"> Поддерживаются CSV без сложных кавычек и JSON.
+                            </p>
                         </div>
                     </section>
 
                     <section class="card">
                         <div class="cardHeader">
-                            <div>Таблица</div>
-                            <div id="sourceMeta" class="muted"></div>
+                            <h3>Таблица</h3>
+                            <p id="sourceMeta" class="muted"></p>
                         </div>
-                        <div class="tableScroll" id="tableRoot"></div>
-                        <div class="cardFooter" id="paginationRoot"></div>
+                        <p class="tableScroll" id="tableRoot"></p>
+                        <p class="cardFooter" id="paginationRoot"></p>
                     </section>
 
                     <section class="card" id="statsRoot"></section>
 
                     <section class="card">
                         <div class="cardHeader">
-                            <div>График</div>
-                            <div class="muted">агрегация top-10</div>
+                            <h3>График</h3>
+                            <p class="muted">агрегация top-10</p>
                         </div>
-                        <div id="chartRoot"></div>
+                        <p id="chartRoot"></p>
                     </section>
             </section>
         </main>

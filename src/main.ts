@@ -138,11 +138,33 @@ function onUiInput(e: Event) {
   const action = el.getAttribute("data-action");
 
   if (action === "search" && el instanceof HTMLInputElement) {
+    const cursorPos = el.selectionStart ?? el.value.length;
     actions.setSearch(el.value);
+
+    requestAnimationFrame(() => {
+      const nextSearch = ui.controls.querySelector<HTMLInputElement>(
+        '[data-action="search"]'
+      );
+      if (nextSearch) {
+        nextSearch.focus();
+        nextSearch.setSelectionRange(cursorPos, cursorPos);
+      }
+    });
   }
 
   if (action === "filter-query" && el instanceof HTMLInputElement) {
+    const cursorPos = el.selectionStart ?? el.value.length;
     actions.setFilterQuery(el.value);
+
+    requestAnimationFrame(() => {
+      const nextFilter = ui.controls.querySelector<HTMLInputElement>(
+        '[data-action="filter-query"]'
+      );
+      if (nextFilter) {
+        nextFilter.focus();
+        nextFilter.setSelectionRange(cursorPos, cursorPos);
+      }
+    });
   }
 }
 

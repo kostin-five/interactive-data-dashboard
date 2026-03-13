@@ -14,20 +14,9 @@ export function renderChart(
     return;
   }
 
-  // const title = document.createElement("div");
-  // title.className = "chartTitle";
-  // title.textContent = view.chartData.title;
-  // const container = document.createElement("div");
-  // container.className = "chartContainer";
-
   const canvas = document.createElement("canvas");
-  // canvas.setAttribute("aria-label", "График данных");
-  // canvas.setAttribute("role", "img");
 
   root.appendChild(canvas);
-
-  // root.appendChild(title);
-  // root.appendChild(container);
 
   const ctx = canvas.getContext("2d");
 
@@ -43,16 +32,8 @@ export function renderChart(
         {
           label: "Сумма",
           data: view.chartData.values,
-          // borderWidth: 1,
         },
       ],
     },
-    // options: {
-    //   responsive: true,
-    //   maintainAspectRatio: false,
-    //   scales: {
-    //     y: { beginAtZero: true },
-    //   },
-    // },
   });
 }
