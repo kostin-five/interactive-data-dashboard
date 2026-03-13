@@ -1,4 +1,6 @@
-export function renderStats(root, { state, view }) {
+import type { AppState, DerivedView } from "../../core/types";
+
+export function renderStats(root: HTMLElement, { state, view }: {state: AppState; view: DerivedView}): void {
   root.innerHTML = `
     <div class="cardHeader">
       <div>Статистика</div>

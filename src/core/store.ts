@@ -1,18 +1,21 @@
-function createStore(initialState) {
-  let state = { ...initialState };
-  const listeners = new Set();
+import type { AppState, SortDir } from "./types";
 
-  function getState() {
+type Listener = (s: AppState) => void;
+
+function createStore(initialState: AppState) {
+  let state: AppState = { ...initialState };
+  const listeners = new Set<Listener>();
+
+  function getState(): AppState {
     return state;
   }
 
-  function setState(next) {
+  function setState(next: Partial<AppState> | ((s: AppState) => AppState)) {
     state = typeof next === "function" ? next(state) : { ...state, ...next };
-
-    for (const fn of listeners) fn(state);
+    listeners.forEach((fn) => fn(state));
   }
 
-  function subscribe(fn) {
+  function subscribe(fn: Listener) {
     listeners.add(fn);
     return () => listeners.delete(fn);
   }
@@ -21,17 +24,13 @@ function createStore(initialState) {
 }
 
 export function createDashboardStore() {
-  const initialState = {
-    // данные
+  const initialState: AppState = {
     rows: [],
     columns: [],
     sourceName: "",
 
-    // ui status
     status: "empty", // "empty" | "loading" | "ready" | "error"
     errorMessage: "",
-
-    // controls
     search: "",
     sortKey: "",
     sortDir: "asc", // "asc" | "desc"
@@ -40,7 +39,6 @@ export function createDashboardStore() {
     page: 1,
     pageSize: 10,
 
-    // stats & chart selections
     statsColumn: "",
     chartX: "",
     chartY: "",
@@ -49,62 +47,67 @@ export function createDashboardStore() {
   const store = createStore(initialState);
 
   const actions = {
-    setStatus(status, errorMessage = "") {
+    setStatus(status: AppState["status"], errorMessage = "") {
       store.setState({ status, errorMessage });
     },
 
-    setDataset({ rows, columns, sourceName }) {
-      store.setState((s) => ({
-        ...s,
+    setDataset({
+      rows,
+      columns,
+      sourceName,
+    }: {
+      rows: AppState["rows"];
+      columns: string[];
+      sourceName?: string;
+    }) {
+      store.setState({
         rows,
         columns,
         sourceName: sourceName ?? "",
         status: "ready",
         errorMessage: "",
         page: 1,
-        // авто-подстановка осей/статов – оставляем пустыми,
-        // deriveView выберет дефолт.
-      }));
+      });
     },
 
-    setSearch(search) {
+    setSearch(search: string) {
       store.setState({ search, page: 1 });
     },
 
-    setSort(key) {
+    setSort(key: string) {
       store.setState((s) => {
         if (!key) return s;
+
         const sameKey = s.sortKey === key;
-        const nextDir = sameKey
-          ? s.sortDir === "asc"
-            ? "desc"
-            : "asc"
-          : "asc";
+
+        const nextDir: SortDir =
+          sameKey && s.sortDir === "asc" ? "desc" : "asc";
+
         return { ...s, sortKey: key, sortDir: nextDir, page: 1 };
       });
     },
 
-    setSortKey(sortKey) {
+    setSortKey(sortKey: string) {
       store.setState((s) => ({ ...s, sortKey, page: 1 }));
     },
 
-    setSortDir(sortDir) {
+    SetSortDir(sortDir: SortDir) {
       store.setState((s) => ({ ...s, sortDir, page: 1 }));
     },
 
-    setFilterColumn(filterColumn) {
+    setFilterColumn(filterColumn: string) {
       store.setState({ filterColumn, page: 1 });
     },
 
-    setFilterQuery(filterQuery) {
+    setFilterQuery(filterQuery: string) {
       store.setState({ filterQuery, page: 1 });
     },
 
-    setPage(page) {
+    setPage(page: number) {
       store.setState({ page: Math.max(1, Number(page) || 1) });
     },
 
-    setPageSize(pageSize) {
+    setPageSize(pageSize: number) {
       store.setState({ pageSize: Number(pageSize) || 10, page: 1 });
     },
 
@@ -120,15 +123,15 @@ export function createDashboardStore() {
       }));
     },
 
-    setStatsColumn(statsColumn) {
+    setStatsColumn(statsColumn: string) {
       store.setState({ statsColumn });
     },
 
-    setChartX(chartX) {
+    setChartX(chartX: string) {
       store.setState({ chartX });
     },
 
-    setChartY(chartY) {
+    setChartY(chartY: string) {
       store.setState({ chartY });
     },
   };

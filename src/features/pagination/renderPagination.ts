@@ -1,24 +1,31 @@
-function buildPages(current, total) {
-  const pages = [];
+import type { AppState, DerivedView } from "../../core/types";
+
+function buildPages(current: number, total: number): Array<number | "..."> {
+  const pages: Array<number | "..."> = [];
   const windowSize = 5;
+
+  if (total <= windowSize) {
+    for (let p = 1; p <= total; p++) pages.push(p);
+    return pages;
+  }
 
   pages.push(1);
 
   const start = Math.max(2, current - 2);
   const end = Math.min(total - 1, current + 2);
 
-  if (start > 2) pages.push("…");
+  if (start > 2) pages.push("...");
 
   for (let p = start; p <= end; p++) pages.push(p);
 
-  if (end < total - 1) pages.push("…");
+  if (end < total - 1) pages.push("...");
 
   if (total > 1) pages.push(total);
 
   return pages;
 }
 
-export function renderPagination(root, { state, view }) {
+export function renderPagination(root: HTMLElement, { state, view } : {state: AppState; view: DerivedView}): void {
   root.replaceChildren();
 
   if (state.status !== "ready") return;
@@ -51,10 +58,10 @@ export function renderPagination(root, { state, view }) {
   pagesWrap.className = "pages";
 
   for (const p of buildPages(current, total)) {
-    if (p === "…") {
+    if (p === "...") {
       const span = document.createElement("span");
       span.className = "dots";
-      span.textContent = "…";
+      span.textContent = "...";
       pagesWrap.appendChild(span);
       continue;
     }

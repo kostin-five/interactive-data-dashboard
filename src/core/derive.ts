@@ -1,17 +1,18 @@
-function isNumberValue(v) {
+import type { AppState, DataRow, DerivedView, RowValue } from "./types";
+
+function isNumberValue(v: RowValue): v is number {
   return typeof v === "number" && Number.isFinite(v);
 }
 
-function clamp(n, min, max) {
+function clamp(n: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, n));
 }
 
-export function deriveView(state) {
+export function deriveView(state: AppState): DerivedView {
   const { rows, columns } = state;
 
-  // 1) типы колонок (простая эвристика)
-  const numericColumns = [];
-  const stringColumns = [];
+  const numericColumns: string[] = [];
+  const stringColumns: string[] = [];
 
   for (const col of columns) {
     let hasNumber = false;
@@ -20,6 +21,7 @@ export function deriveView(state) {
     for (let i = 0; i < Math.min(rows.length, 200); i++) {
       const v = rows[i]?.[col];
       if (v == null || v === "") continue;
+
       if (typeof v === "number") hasNumber = true;
       else hasNonNumber = true;
     }
@@ -28,12 +30,11 @@ export function deriveView(state) {
     else stringColumns.push(col);
   }
 
-  // 2) filter + search
   const q = state.search.trim().toLowerCase();
   const filterCol = state.filterColumn;
   const filterQ = state.filterQuery.trim().toLowerCase();
 
-  let filtered = rows;
+  let filtered: DataRow[] = rows;
 
   if (filterCol && filterQ) {
     filtered = filtered.filter((r) =>
@@ -53,17 +54,16 @@ export function deriveView(state) {
     });
   }
 
-  // 3) sort
   const sortKey = state.sortKey;
   const sortDir = state.sortDir;
 
   let sorted = filtered;
+
   if (sortKey) {
     sorted = [...filtered].sort((a, b) => {
       const av = a?.[sortKey];
       const bv = b?.[sortKey];
 
-      // nulls last
       if (av == null && bv == null) return 0;
       if (av == null) return 1;
       if (bv == null) return -1;
@@ -78,7 +78,6 @@ export function deriveView(state) {
     if (sortDir === "desc") sorted.reverse();
   }
 
-  // 4) pagination
   const total = rows.length;
   const visible = sorted.length;
 
@@ -89,11 +88,9 @@ export function deriveView(state) {
   const start = (safePage - 1) * pageSize;
   const pageRows = sorted.slice(start, start + pageSize);
 
-  // 5) stats (по выбранной или по первой числовой колонке)
   const statsColumn = state.statsColumn || numericColumns[0] || "";
   const stats = computeStats(sorted, statsColumn);
 
-  // 6) chart data (агрегация sum по фигурным ключам)
   const chartX = state.chartX || stringColumns[0] || "";
   const chartY = state.chartY || numericColumns[0] || "";
   const chartData = buildChartData(sorted, chartX, chartY);
@@ -114,7 +111,7 @@ export function deriveView(state) {
   };
 }
 
-function computeStats(rows, col) {
+function computeStats(rows: DataRow[], col: string): DerivedView["stats"] {
   if (!col) {
     return { enabled: false };
   }
@@ -147,14 +144,15 @@ function computeStats(rows, col) {
   };
 }
 
-function buildChartData(rows, xKey, yKey) {
+function buildChartData(rows: DataRow[], xKey: string, yKey: string): DerivedView["chartData"] {
   if (!xKey || !yKey) return { enabled: false };
 
-  const agg = new Map();
+  const agg = new Map<string, number>();
 
   for (const r of rows) {
     const label = String(r?.[xKey] ?? "—");
     const v = r?.[yKey];
+
     if (!isNumberValue(v)) continue;
     agg.set(label, (agg.get(label) ?? 0) + v);
   }

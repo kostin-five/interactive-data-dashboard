@@ -31,7 +31,7 @@ a { color: inherit; }
   padding: 18px 18px 0;
 }
 
-.brandTitle { font-weight: 800; font-size: 18px; }
+.brandTitle { font-weight: 800; font-size: 18px; margin-bottom: 10px; }
 .brandSubtitle { color: var(--muted); font-size: 13px; margin-top: 4px; }
 
 .topbarActions { display: flex; gap: 10px; align-items: center; }

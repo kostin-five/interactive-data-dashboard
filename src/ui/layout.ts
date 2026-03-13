@@ -1,9 +1,22 @@
-export function renderLayout(appEl) {
+export interface LayoutRefs {
+  appEl: HTMLElement;
+  fileInput: HTMLInputElement;
+  dropzone: HTMLElement;
+  alert: HTMLElement;
+  controls: HTMLElement;
+  tableRoot: HTMLElement;
+  paginationRoot: HTMLElement;
+  statsRoot: HTMLElement;
+  chartRoot: HTMLElement;
+  sourceMeta: HTMLElement;
+}
+
+export function renderLayout(appEl: HTMLElement): LayoutRefs {
   appEl.innerHTML = `
-        <header class="topbar>
+        <header class="topbar">
             <div class="brand">
-                <div class"brandTitle">Interactive Data Dashboard</div>
-                <div class="brandSubtitle">CSV/JSON → таблица, фильтры, статистика, график</div>
+                <h1 class="brandTitle">Interactive Data Dashboard</h1>
+                <h2 class="brandSubtitle">CSV/JSON → таблица, фильтры, статистика, график</h2>
             </div>
 
             <div class="topbarActions">
@@ -19,7 +32,7 @@ export function renderLayout(appEl) {
             </div>
         </header>
 
-        <div id="alert class="alert" aria-live="polite"></div>
+        <div id="alert" class="alert" aria-live="polite"></div>
 
         <main class="appGrid">
             <aside class="card" id="controls"></aside>
@@ -62,16 +75,40 @@ export function renderLayout(appEl) {
         </main>
     `;
 
+  const fileInput = appEl.querySelector<HTMLInputElement>("#fileInput");
+  const dropzone = appEl.querySelector<HTMLElement>("#dropzone");
+  const alert = appEl.querySelector<HTMLElement>("#alert");
+  const controls = appEl.querySelector<HTMLElement>("#controls");
+  const tableRoot = appEl.querySelector<HTMLElement>("#tableRoot");
+  const paginationRoot = appEl.querySelector<HTMLElement>("#paginationRoot");
+  const statsRoot = appEl.querySelector<HTMLElement>("#statsRoot");
+  const chartRoot = appEl.querySelector<HTMLElement>("#chartRoot");
+  const sourceMeta = appEl.querySelector<HTMLElement>("#sourceMeta");
+
+  if (
+    !fileInput ||
+    !dropzone ||
+    !alert ||
+    !controls ||
+    !tableRoot ||
+    !paginationRoot ||
+    !statsRoot ||
+    !chartRoot ||
+    !sourceMeta
+  ) {
+    throw new Error("Не удалось найти один или несколько элементов layout");
+  }
+
   return {
     appEl,
-    fileInput: appEl.querySelector("#fileInput"),
-    dropzone: appEl.querySelector("#dropzone"),
-    alert: appEl.querySelector("#alert"),
-    controls: appEl.querySelector("#controls"),
-    tableRoot: appEl.querySelector("#tableRoot"),
-    paginationRoot: appEl.querySelector("#paginationRoot"),
-    statsRoot: appEl.querySelector("#statsRoot"),
-    chartRoot: appEl.querySelector("#chartRoot"),
-    sourceMeta: appEl.querySelector("#sourceMeta"),
+    fileInput,
+    dropzone,
+    alert,
+    controls,
+    tableRoot,
+    paginationRoot,
+    statsRoot,
+    chartRoot,
+    sourceMeta,
   };
 }

@@ -1,12 +1,13 @@
-function option(value, label, current) {
+import type { AppState, DerivedView } from "../../core/types";
+
+function option(value: string, label: string, current: string): string {
   const selected = value === current ? "selected" : "";
   return `<option value="${escapeHtml(value)}" ${selected}>${escapeHtml(
     label
   )}</option>`;
 }
 
-// очень простой escape для вставки в HTML (для статичных списков)
-function escapeHtml(s) {
+function escapeHtml(s: string):string {
   return String(s)
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
@@ -15,7 +16,7 @@ function escapeHtml(s) {
     .replaceAll("'", "&#039;");
 }
 
-export function renderControls(root, { state, view }) {
+export function renderControls(root:HTMLElement, { state, view } : {state: AppState; view: DerivedView}): void {
   const colOptions = [""].concat(state.columns);
 
   const sortKey = state.sortKey;

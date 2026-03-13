@@ -1,11 +1,13 @@
-function formatCell(v) {
+import type { AppState, DerivedView, RowValue } from "../../core/types";
+
+function formatCell(v: RowValue): string {
   if (v == null) return "—";
   if (typeof v === "boolean") return v ? "true" : "false";
   if (typeof v === "number") return Number.isFinite(v) ? String(v) : "—";
   return String(v);
 }
 
-export function renderTable(root, { state, view }) {
+export function renderTable(root: HTMLElement, { state, view } : {state: AppState; view: DerivedView}): void {
   root.replaceChildren();
 
   if (state.status !== "ready") {
@@ -43,7 +45,6 @@ export function renderTable(root, { state, view }) {
     btn.setAttribute("data-action", "sort");
     btn.setAttribute("data-key", col);
 
-    // aria-sort
     let ariaSort = "none";
     if (state.sortKey === col)
       ariaSort = state.sortDir === "asc" ? "ascending" : "descending";
